@@ -2,12 +2,12 @@ import Vue from 'vue';
 import App from './App.vue';
 
 Vue.directive('event', {
-  bind(el, binding, VNode) {
-    const eventType = binding.arg;
-    const callbackName = binding.expression;
-    const callback = VNode.context[callbackName] || callbackName;
+  bind(el, binding) {
+    const { arg: eventType, value: callback } = binding;
 
-    el.addEventListener(eventType, callback);
+    if (typeof callback === 'function') {
+      el.addEventListener(eventType, callback);
+    }
   }
 });
 
